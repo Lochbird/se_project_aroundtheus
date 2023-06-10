@@ -1,3 +1,16 @@
 .header {
   padding: 45px 0 0;
+  border-bottom: 2px;
+}
+
+@media screen and (max-width: 600px) {
+  .header {
+    padding: 28px 0 0 27px;
+  }
+}
+
+@media screen and (min-width: 601px) and (max-width: 880px) {
+  .header {
+    padding: 28px 0 0 27px;
+  }
 }
