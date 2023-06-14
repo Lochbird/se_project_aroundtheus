@@ -18,3 +18,9 @@
   padding: 0 10px;
   margin: 0 auto;
 }
+
+@media screen and (max-width: 320px) {
+  .page__content {
+    padding: 0;
+  }
+}

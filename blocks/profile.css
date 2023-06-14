@@ -46,7 +46,8 @@
 }
 
 .profile__edit-button:hover {
-  background: transparent url(../images/edit_button-active.svg) center no-repeat;
+  background: url(../images/edit_button-active.svg) center no-repeat;
+  opacity: 70%;
 }
 
 .profile__description {
@@ -69,6 +70,7 @@
   margin: 0 0 0 auto;
   cursor: pointer;
   border: solid white 2px;
+  border-radius: 2px;
 }
 
 .profile__add-button:hover {
@@ -78,7 +80,7 @@
 @media screen and (max-width: 600px) {
   .profile {
     flex-direction: column;
-    padding: 36px 0 0;
+    padding: 38px 0 0;
   }
 
   .profile__image {
