@@ -46,8 +46,7 @@
 }
 
 .profile__edit-button:hover {
-  background: url(../images/edit_button-active.svg) center no-repeat;
-  opacity: 70%;
+  opacity: 60%;
 }
 
 .profile__description {
