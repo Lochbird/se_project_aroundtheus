@@ -58,8 +58,13 @@
   height: 50px;
   color: #fff;
   background-color: #000;
+  cursor: pointer;
   border: none;
   border-radius: 2px;
+}
+
+.modal__button:hover {
+  background-color: rgba(0, 0, 0, 0.8);
 }
 
 .modal__close {
