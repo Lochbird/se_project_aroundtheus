@@ -37,7 +37,7 @@ const profileDescription = document.querySelector(".profile__description");
 const profileTitleInput = document.querySelector("#profile-title-input");
 const profileDescInput = document.querySelector("#profile-description-input");
 
-const cardListEl = document.querySelector(".card__list");
+const cardListEl = document.querySelector(".cards__list");
 const cardTemplate = document
   .querySelector("#card-template")
   .content.querySelector(".card");
