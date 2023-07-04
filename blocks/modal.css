@@ -8,12 +8,12 @@
   z-index: 999;
   background-color: rgba(0, 0, 0, 0.5);
   display: none;
+  align-items: center;
+  justify-content: center;
 }
 
 .modal__opened {
   display: flex;
-  align-items: center;
-  justify-content: center;
 }
 
 .modal__container {
@@ -79,4 +79,15 @@
   background-color: transparent;
   background-repeat: no-repeat;
   background-size: contain;
+}
+
+.modal__close:hover {
+  opacity: 0.7;
+}
+
+@media screen and (max-width: 600px) {
+  .modal__close {
+    top: -60px;
+    right: 0px;
+  }
 }
