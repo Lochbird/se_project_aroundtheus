@@ -54,6 +54,10 @@ function closePopUp() {
 function fillProfileForm() {
   profileTitleInput.value = profileTitle.textContent;
   profileDescInput.value = profileDescription.textContent;
+}
+
+function openProfilePopup() {
+  fillProfileForm();
   openPopUp();
 }
 
@@ -79,7 +83,7 @@ function handlerProfileEditSubmit(e) {
 }
 
 // EVENT LISTENERS
-profileEditButton.addEventListener("click", fillProfileForm);
+profileEditButton.addEventListener("click", openProfilePopup);
 
 profileEditCloseButton.addEventListener("click", closePopUp);
 
