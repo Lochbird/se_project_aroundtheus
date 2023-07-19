@@ -100,8 +100,16 @@
         </form>
       </div>
     </div>
+    <div class="modal" id="preview-image-modal">
+      <div class="modal__preview-image">
+        <button class="modal__close" type="button"></button>
+        <img src="" class="card__image card__preview-image" alt="" />
+        <p class="modal__preview-image_text"></p>
+      </div>
+    </div>
     <template id="card-template">
       <li class="card">
+        <button class="card__delete-button"></button>
         <img src="" class="card__image" alt="" />
         <div class="card__description">
           <h2 class="card__title"></h2>

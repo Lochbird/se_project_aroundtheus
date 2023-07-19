@@ -7,13 +7,18 @@
   right: 0;
   z-index: 999;
   background-color: rgba(0, 0, 0, 0.5);
-  display: none;
   align-items: center;
   justify-content: center;
+  display: flex;
+  visibility: hidden;
+  opacity: 0;
+  transition: visibility 0s linear 0.2s, opacity 0.2s linear;
 }
 
 .modal__opened {
-  display: flex;
+  visibility: visible;
+  opacity: 1;
+  transition-delay: 0s;
 }
 
 .modal__container {
@@ -83,6 +88,18 @@
 
 .modal__close:hover {
   opacity: 0.7;
+}
+
+.modal__preview-image {
+  position: relative;
+}
+
+.modal__preview-image_text {
+  font-family: "Inter", Arial, Helvetica, sans-serif;
+  font-size: 12px;
+  font-weight: 400;
+  padding: 10px 0 0;
+  margin: 0;
 }
 
 @media screen and (max-width: 600px) {
