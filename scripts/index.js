@@ -31,7 +31,7 @@ const modals = document.querySelectorAll(".modal");
 const profileEditButton = document.querySelector("#profile-edit-button");
 const profileEditModal = document.querySelector("#edit-profile-modal");
 const profileEditCloseButton = document.querySelector("#edit-profile-close");
-const profileEditForm = profileEditModal.querySelector(".modal__form");
+const profileEditForm = document.forms["edit-profile-form"];
 
 const profileTitle = document.querySelector(".profile__title");
 const profileDescription = document.querySelector(".profile__description");
@@ -45,7 +45,7 @@ const cardTemplate = document
   .content.querySelector(".card");
 
 const addCardModal = document.querySelector("#add-card-modal");
-const addCardModalForm = document.querySelector("#add-card-modal-form");
+const addCardModalForm = document.forms["add-card-modal-form"];
 const addCardButton = document.querySelector("#profile-add-button");
 const addCardCloseButton = document.querySelector("#add-card-button-close");
 
@@ -61,8 +61,8 @@ const previewImageCloseButton =
 // FUNCTIONS
 function openPopUp(modal) {
   modal.classList.add("modal_opened");
-  document.addEventListener("click", closePopUpMouseDown);
-  document.addEventListener("keydown", closePopUpKeyEsc);
+  document.addEventListener("mousedown", closeByMouseDown);
+  document.addEventListener("keydown", closeByEsc);
 }
 
 function closePopUp(modal) {
@@ -117,21 +117,21 @@ function getCardElement(cardData) {
   return cardElement;
 }
 
-function closePopUpMouseDown(evt) {
+function closeByMouseDown(evt) {
   modals.forEach((modal) => {
     if (evt.target.classList.contains("modal_opened")) {
       closePopUp(modal);
-      document.removeEventListener("click", closePopUpMouseDown);
+      document.removeEventListener("mousedown", closeByMouseDown);
     }
   });
 }
 
-function closePopUpKeyEsc(evt) {
+function closeByEsc(evt) {
   if (evt.key === "Escape") {
     modals.forEach((modal) => {
       if (modal.classList.contains("modal_opened")) {
         closePopUp(modal);
-        document.removeEventListener("keydown", closePopUpKeyEsc);
+        document.removeEventListener("keydown", closeByEsc);
       }
     });
   }
