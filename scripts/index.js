@@ -60,11 +60,13 @@ const previewImageCloseButton =
 
 // FUNCTIONS
 function openPopUp(modal) {
-  modal.classList.add("modal__opened");
+  modal.classList.add("modal_opened");
+  document.addEventListener("click", closePopUpMouseDown);
+  document.addEventListener("keydown", closePopUpKeyEsc);
 }
 
 function closePopUp(modal) {
-  modal.classList.remove("modal__opened");
+  modal.classList.remove("modal_opened");
 }
 
 function fillProfileForm() {
@@ -115,19 +117,41 @@ function getCardElement(cardData) {
   return cardElement;
 }
 
+function closePopUpMouseDown(evt) {
+  modals.forEach((modal) => {
+    if (evt.target.classList.contains("modal_opened")) {
+      closePopUp(modal);
+      document.removeEventListener("click", closePopUpMouseDown);
+    }
+  });
+}
+
+function closePopUpKeyEsc(evt) {
+  if (evt.key === "Escape") {
+    modals.forEach((modal) => {
+      if (modal.classList.contains("modal_opened")) {
+        closePopUp(modal);
+        document.removeEventListener("keydown", closePopUpKeyEsc);
+      }
+    });
+  }
+}
+
 // EVENT HANDLERS
-function handlerProfileEditSubmit(e) {
-  e.preventDefault();
+function handlerProfileEditSubmit(evt) {
+  evt.preventDefault();
   profileTitle.textContent = profileTitleInput.value;
   profileDescription.textContent = profileDescInput.value;
   closePopUp(profileEditModal);
 }
-function handlerAddCardSubmit(e) {
-  e.preventDefault();
+function handlerAddCardSubmit(evt) {
+  evt.preventDefault();
   const name = addCardTitleInput.value;
   const link = addCardURLInput.value;
   renderCard({ name, link }, cardListEl);
   closePopUp(addCardModal);
+  addCardTitleInput.value = "";
+  addCardURLInput.value = "";
 }
 
 // EVENT LISTENERS
@@ -150,21 +174,3 @@ addCardCloseButton.addEventListener("click", () => closePopUp(addCardModal));
 previewImageCloseButton.addEventListener("click", () =>
   closePopUp(previewImageModal)
 );
-
-modals.forEach((modal) => {
-  document.addEventListener("click", (evt) => {
-    if (evt.target.classList.contains("modal__opened")) {
-      closePopUp(modal);
-    }
-  });
-});
-
-document.addEventListener("keydown", (evt) => {
-  if (evt.key === "Escape") {
-    modals.forEach((modal) => {
-      if (modal.classList.contains("modal__opened")) {
-        closePopUp(modal);
-      }
-    });
-  }
-});
