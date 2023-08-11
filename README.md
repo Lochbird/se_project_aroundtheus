@@ -8,7 +8,7 @@
 
 **Intro**
 
-This project is made so all the elements are displayed correctly on popular screen sizes. We recommend investing more time in completing this project, since it's more difficult than previous ones.
+This project is made so all the elements are displayed correctly on popular screen sizes. Since then the project has taken everything I have learned about Javascript: the appropriate pop-ups reveal themselves when the buttons are clicked, cards can be added and deleted, and form validation has been added. 
 
 **Figma**
 
@@ -17,6 +17,7 @@ This project is made so all the elements are displayed correctly on popular scre
 **Images**
 ![Desktop Version of the Website](./images/readme_desktop.png)
 ![Mobile Version of the Website](./images/readme_mobile.png)
+![Pop-Up for Edit Profile](./images/readme_pop-up.png)
 
 **Improvements**
 Media Queries are very interesting, but is still a concept I need to wrap my head around. It's like thinking you learned how to throw a ball before you realize it needs to be tossed in a hoop in order for it to count. You can guess how it can make it to the hoop, but it's a new process nonetheless.
