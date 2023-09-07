@@ -1,3 +1,6 @@
+import Card from "../components/card.js";
+import FormValidator from "../scripts/FormValidator.js";
+
 const initialCards = [
   {
     name: "Yosemite Valley",
@@ -24,6 +27,14 @@ const initialCards = [
     link: "https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/around-project/lago.jpg",
   },
 ];
+
+const cardData = {
+  name: "Yosemite Valley",
+  link: "https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/around-project/yosemite.jpg",
+};
+
+const card = new Card(cardData, "#card-template");
+card.getView();
 
 // ELEMENTS
 const modals = document.querySelectorAll(".modal");
@@ -86,21 +97,18 @@ function renderCard(cardData, list) {
 
 function getCardElement(cardData) {
   const cardElement = cardTemplate.cloneNode(true);
-
   const cardImageEl = cardElement.querySelector(".card__image");
   const cardTitleEl = cardElement.querySelector(".card__title");
-
   const likeButton = cardElement.querySelector(".card__like-button");
+  // const deleteButton = cardElement.querySelector(".card__delete-button");
 
   likeButton.addEventListener("click", () => {
     likeButton.classList.toggle("card__like-button_active");
   });
 
-  const deleteButton = cardElement.querySelector(".card__delete-button");
-
-  deleteButton.addEventListener("click", () => {
-    cardElement.remove(cardElement);
-  });
+  // deleteButton.addEventListener("click", () => {
+  //   cardElement.remove(cardElement);
+  // });
 
   cardImageEl.addEventListener("click", () => {
     previewImage.src = cardData.link;
@@ -161,3 +169,17 @@ closeButtons.forEach((button) => {
   const popup = button.closest(".modal");
   button.addEventListener("click", () => closePopUp(popup));
 });
+
+const validationOptions = {
+  inputSelector: ".modal__input",
+  submitButtonSelector: ".modal__button",
+  inactiveButtonClass: "modal__button_disabled",
+  inputErrorClass: "modal__input_type_error",
+  errorClass: "modal__error_visible",
+};
+
+const editForm = profileEditModal.querySelector(".modal__form");
+const addForm = addCardModal.querySelector(".modal__form");
+
+const editFormValidator = new FormValidator(validationOptions, editForm);
+const addFormValidator = new FormValidator(validationOptions, addForm);
