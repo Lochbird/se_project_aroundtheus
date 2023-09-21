@@ -5,18 +5,30 @@ export default class Card {
     this._cardSelector = cardSelector;
   }
 
-  _handleImageClick() {}
+  getView() {
+    this._cardElement = document
+      .querySelector(this._cardSelector)
+      .content.querySelector(".card")
+      .cloneNode(true);
+
+    this._cardElement.querySelector(".card__image").src = this._link;
+    this._cardElement.querySelector(".card__title").textContent = this._name;
+
+    this._setEventListeners();
+
+    return;
+  }
 
   _setEventListeners() {
     this._cardElement
       .querySelector(".card__like-button")
       .addEventListener("click", () => {
-        this.handleLikeButton();
+        this._handleLikeButton();
       });
     this._cardElement
       .querySelector(".card__delete-button")
       .addEventListener("click", () => {
-        this._handleDeleteCard;
+        this._handleDeleteCard();
       });
   }
 
@@ -31,14 +43,5 @@ export default class Card {
     this._cardElement = null;
   }
 
-  getView() {
-    this._cardElement = document
-      .querySelector(this._cardSelector)
-      .content.querySelector(".card")
-      .cloneNode(true);
-
-    this._setEventListeners();
-
-    document.body.append(this._cardElement);
-  }
+  _handlePreviewImage() {}
 }
