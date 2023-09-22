@@ -46,6 +46,7 @@ const cardListEl = document.querySelector(".cards__list");
 const closeButtons = document.querySelectorAll(".modal__close");
 
 const addCardModal = document.querySelector("#add-card-modal");
+const addCardSubmit = addCardModal.querySelector(".modal__button");
 const addCardModalForm = document.forms["add-card-modal-form"];
 const addCardButton = document.querySelector("#profile-add-button");
 
@@ -106,18 +107,28 @@ function renderCard(cardData, list) {
 // EVENT HANDLERS
 function handlerProfileEditSubmit(evt) {
   evt.preventDefault();
+
   profileTitle.textContent = profileTitleInput.value;
   profileDescription.textContent = profileDescInput.value;
+
   closePopUp(profileEditModal);
 }
+
 function handlerAddCardSubmit(evt) {
   evt.preventDefault();
+
   const name = addCardTitleInput.value;
   const link = addCardURLInput.value;
+
   renderCard({ name, link }, cardListEl);
+
   closePopUp(addCardModal);
+
   addCardTitleInput.value = "";
   addCardURLInput.value = "";
+
+  addCardSubmit.setAttribute("disabled", "");
+  addCardSubmit.classList.add("modal__button_disabled");
 }
 
 // EVENT LISTENERS
