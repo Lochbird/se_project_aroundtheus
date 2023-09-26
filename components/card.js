@@ -58,13 +58,6 @@ export default class Card {
     document.addEventListener("keydown", this._closeByEsc);
   }
 
-  _closePreviewImage() {
-    this._handleImageClick.classList.remove("modal_opened");
-
-    document.removeEventListener("mousedown", this._closeByMouseDown);
-    document.removeEventListener("keydown", this._closeByEsc);
-  }
-
   _closeByEsc(evt) {
     if (evt.key === "Escape") {
     document.querySelector("#preview-image-modal").classList.remove("modal_opened");
