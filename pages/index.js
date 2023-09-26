@@ -42,6 +42,7 @@ const profileTitleInput = document.querySelector("#profile-title-input");
 const profileDescInput = document.querySelector("#profile-description-input");
 
 const cardListEl = document.querySelector(".cards__list");
+const cardImage = document.querySelectorAll(".card__image");
 
 const closeButtons = document.querySelectorAll(".modal__close");
 
