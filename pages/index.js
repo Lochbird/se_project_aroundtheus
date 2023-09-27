@@ -100,6 +100,8 @@ function closeByEsc(evt) {
   }
 }
 
+export {openPopUp};
+
 function renderCard(cardData, list) {
   const card = new Card(cardData, "#card-template", previewImageModal);
   list.prepend(card.getView());
