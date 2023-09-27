@@ -98,12 +98,17 @@ function closeByEsc(evt) {
   }
 }
 
-export {openPopUp};
+function createCard(cardData) {
+  const card = new Card(cardData, "#card-template");
+  return card.getView();
+}
 
 function renderCard(cardData, list) {
-  const card = new Card(cardData, "#card-template", previewImageModal);
-  list.prepend(card.getView());
+  const card = createCard(cardData);
+  list.prepend(card);
 }
+
+export {openPopUp};
 
 // EVENT HANDLERS
 function handlerProfileEditSubmit(evt) {
@@ -145,11 +150,8 @@ closeButtons.forEach((button) => {
 
 initialCards.forEach((cardData) => renderCard(cardData, cardListEl));
 
-const editForm = profileEditModal.querySelector(".modal__form");
-const addForm = addCardModal.querySelector(".modal__form");
-
-const editFormValidator = new FormValidator(settings, editForm);
+const editFormValidator = new FormValidator(settings, profileEditForm);
 editFormValidator.enableValidation();
 
-const addFormValidator = new FormValidator(settings, addForm);
+const addFormValidator = new FormValidator(settings, addCardModalForm);
 addFormValidator.enableValidation();

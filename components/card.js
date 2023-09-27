@@ -1,11 +1,17 @@
 import { openPopUp } from "../pages/index.js";
 
+const previewImageModal = document.querySelector("#preview-image-modal");
+const previewImage = previewImageModal.querySelector(
+      ".card__preview-image"
+    );
+const previewImageText =
+    previewImageModal.querySelector(".modal__paragraph");
+
 export default class Card {
-  constructor({ name, link }, cardSelector, handleImageClick) {
+  constructor({ name, link }, cardSelector) {
     this._name = name;
     this._link = link;
     this._cardSelector = cardSelector;
-    this._handleImageClick = handleImageClick;
   }
 
   getView() {
@@ -13,6 +19,11 @@ export default class Card {
       .querySelector(this._cardSelector)
       .content.querySelector(".card")
       .cloneNode(true);
+
+    this._cardLikeBtn = this._cardElement.querySelector(".card__like-button");
+    this._cardDeleteBtn = this._cardElement.querySelector(".card__delete-button");
+    this._cardImage = this._cardElement
+      .querySelector(".card__image");
 
     this._cardElement.querySelector(".card__image").src = this._link;
     this._cardElement.querySelector(".card__image").alt = this._name;
@@ -24,22 +35,19 @@ export default class Card {
   }
 
   _setEventListeners() {
-    this._cardElement
-      .querySelector(".card__like-button")
+    this._cardLikeBtn
       .addEventListener("click", () => {
         this._handleLikeButton();
       });
 
-    this._cardElement
-      .querySelector(".card__delete-button")
+    this._cardDeleteBtn
       .addEventListener("click", () => {
         this._handleDeleteCard();
       });
 
-    this._cardElement
-      .querySelector(".card__image")
+    this._cardImage
       .addEventListener("click", () => {
-        this._handlePreviewImage();
+        this._handleImageClick(this);
       });
   }
 
@@ -54,17 +62,11 @@ export default class Card {
     this._cardElement = null;
   }
 
-  _handlePreviewImage() {
-    const previewImage = this._handleImageClick.querySelector(
-      ".card__preview-image"
-    );
-    const previewImageText =
-      this._handleImageClick.querySelector(".modal__paragraph");
-
+  _handleImageClick() {
     previewImage.src = this._link;
     previewImage.alt = this._name;
     previewImageText.textContent = this._name;
 
-    openPopUp(this._handleImageClick);
+    openPopUp(previewImageModal);
   }
 }

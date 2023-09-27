@@ -13,10 +13,10 @@ export default class FormValidator {
     this._form.addEventListener("submit", (evt) => {
       evt.preventDefault();
     });
-    this._setEventListeners(settings);
+    this._setEventListeners();
   }
 
-  _setEventListeners(settings) {
+  _setEventListeners() {
     const inputElements = [...this._form.querySelectorAll(this._inputSelector)];
     const submitButton = this._form.querySelector(this._submitButtonSelector);
 
@@ -75,12 +75,3 @@ export default class FormValidator {
     return !inputElements.every((inputElement) => inputElement.validity.valid);
   }
 }
-
-const settings = {
-  formSelector: ".modal__form",
-  inputSelector: ".modal__input",
-  submitButtonSelector: ".modal__button",
-  inactiveButtonClass: "modal__button_disabled",
-  inputErrorClass: "modal__input_type_error",
-  errorClass: "modal__error_visible",
-};
