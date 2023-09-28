@@ -1,4 +1,4 @@
-import Card from "../components/card.js";
+import Card from "../components/Card.js";
 import FormValidator from "../components/FormValidator.js";
 
 const initialCards = [
@@ -108,8 +108,6 @@ function renderCard(cardData, list) {
   list.prepend(card);
 }
 
-export {openPopUp};
-
 // EVENT HANDLERS
 function handlerProfileEditSubmit(evt) {
   evt.preventDefault();
@@ -132,6 +130,7 @@ function handlerAddCardSubmit(evt) {
 
   addCardTitleInput.value = "";
   addCardURLInput.value = "";
+  addFormValidator.toggleButtonState();
 }
 
 // EVENT LISTENERS
@@ -155,3 +154,5 @@ editFormValidator.enableValidation();
 
 const addFormValidator = new FormValidator(settings, addCardModalForm);
 addFormValidator.enableValidation();
+
+export {openPopUp};
