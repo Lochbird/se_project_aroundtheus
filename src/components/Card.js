@@ -1,11 +1,8 @@
-import { openPopUp } from "../src/index.js";
+import { openPopUp } from "../pages/index.js";
 
 const previewImageModal = document.querySelector("#preview-image-modal");
-const previewImage = previewImageModal.querySelector(
-      ".card__preview-image"
-    );
-const previewImageText =
-    previewImageModal.querySelector(".modal__paragraph");
+const previewImage = previewImageModal.querySelector(".card__preview-image");
+const previewImageText = previewImageModal.querySelector(".modal__paragraph");
 
 export default class Card {
   constructor({ name, link }, cardSelector) {
@@ -21,12 +18,13 @@ export default class Card {
       .cloneNode(true);
 
     this._cardLikeBtn = this._cardElement.querySelector(".card__like-button");
-    this._cardDeleteBtn = this._cardElement.querySelector(".card__delete-button");
-    this._cardImage = this._cardElement
-      .querySelector(".card__image");
+    this._cardDeleteBtn = this._cardElement.querySelector(
+      ".card__delete-button"
+    );
+    this._cardImage = this._cardElement.querySelector(".card__image");
 
-      this._cardImage.src = this._link;
-      this._cardImage.alt = this._name;
+    this._cardImage.src = this._link;
+    this._cardImage.alt = this._name;
     this._cardElement.querySelector(".card__title").textContent = this._name;
 
     this._setEventListeners();
@@ -35,25 +33,21 @@ export default class Card {
   }
 
   _setEventListeners() {
-    this._cardLikeBtn
-      .addEventListener("click", () => {
-        this._handleLikeButton();
-      });
+    this._cardLikeBtn.addEventListener("click", () => {
+      this._handleLikeButton();
+    });
 
-    this._cardDeleteBtn
-      .addEventListener("click", () => {
-        this._handleDeleteCard();
-      });
+    this._cardDeleteBtn.addEventListener("click", () => {
+      this._handleDeleteCard();
+    });
 
-    this._cardImage
-      .addEventListener("click", () => {
-        this._handleImageClick(this);
-      });
+    this._cardImage.addEventListener("click", () => {
+      this._handleImageClick(this);
+    });
   }
 
   _handleLikeButton() {
-    this._cardLikeBtn
-      .classList.toggle("card__like-button_active");
+    this._cardLikeBtn.classList.toggle("card__like-button_active");
   }
 
   _handleDeleteCard() {
