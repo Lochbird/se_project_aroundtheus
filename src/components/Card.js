@@ -1,14 +1,9 @@
-import { openPopUp } from "../pages/index.js";
-
-const previewImageModal = document.querySelector("#preview-image-modal");
-const previewImage = previewImageModal.querySelector(".card__preview-image");
-const previewImageText = previewImageModal.querySelector(".modal__paragraph");
-
 export default class Card {
-  constructor({ name, link }, cardSelector) {
+  constructor({ name, link }, cardSelector, { handleImageClick }) {
     this._name = name;
     this._link = link;
     this._cardSelector = cardSelector;
+    this._handleImageClick = handleImageClick;
   }
 
   getView() {
@@ -53,13 +48,5 @@ export default class Card {
   _handleDeleteCard() {
     this._cardElement.remove();
     this._cardElement = null;
-  }
-
-  _handleImageClick() {
-    previewImage.src = this._link;
-    previewImage.alt = this._name;
-    previewImageText.textContent = this._name;
-
-    openPopUp(previewImageModal);
   }
 }
