@@ -78,9 +78,12 @@ function renderCard(cardData) {
 }
 
 // HANDLERS
-function handlerFormSubmit(data) {
-  console.log(data);
-  userInfo.setUserInfo(data);
+function handlerFormSubmit() {
+  const userInfo = new UserInfo(profileTitle, profileDescription);
+  userInfo.getUserInfo();
+  userInfo.setUserInfo(profileTitleInput, profileDescInput);
+  profileTitle.textContent = profileTitleInput.value;
+  profileDescription.textContent = profileDescInput.value;
   profileEditPopup.close();
 }
 
@@ -110,8 +113,6 @@ addCardButton.addEventListener("click", () => {
 });
 
 // CLASSES
-const userInfo = new UserInfo(profileTitle, profileDescription);
-
 const profileEditPopup = new PopupWithForm(profileEditModal, handlerFormSubmit);
 
 const imagePopup = new PopupWithImage(previewImageModal);

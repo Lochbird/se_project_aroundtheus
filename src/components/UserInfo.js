@@ -12,9 +12,8 @@ export default class UserInfo {
     return info;
   }
 
-  setUserInfo(data) {
-    console.log(this._name);
-    this._name = data.name;
-    this._title = data.title;
+  setUserInfo({ name, title }) {
+    this._name = name;
+    this._title = title;
   }
 }
