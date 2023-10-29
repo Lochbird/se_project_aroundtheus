@@ -32,23 +32,19 @@ const previewImageModal = document.querySelector("#preview-image-modal");
 // FUNCTIONS
 function createCard(cardData) {
   const card = renderCard(cardData);
-  return cardSection.addItem(card.getView());
+  return cardSection.addItem(card);
 }
 
 function renderCard(cardData) {
   const card = new Card(cardData, "#card-template", {
     handleImageClick: () => imagePopup.open(cardData),
   });
-  return card;
+  return card.getView();
 }
 
 // HANDLERS
-function handlerFormSubmit() {
-  const userInfo = new UserInfo(profileTitle, profileDescription);
-  userInfo.getUserInfo();
-  userInfo.setUserInfo(profileTitleInput, profileDescInput);
-  profileTitle.textContent = profileTitleInput.value;
-  profileDescription.textContent = profileDescInput.value;
+function handlerFormSubmit(data) {
+  userInfo.setUserInfo(data);
   profileEditPopup.close();
 }
 
@@ -82,6 +78,8 @@ const profileEditPopup = new PopupWithForm(profileEditModal, handlerFormSubmit);
 
 const imagePopup = new PopupWithImage(previewImageModal);
 const cardPopup = new PopupWithForm(addCardModal, handlerAddCardSubmit);
+
+const userInfo = new UserInfo(profileTitle, profileDescription);
 
 const editFormValidator = new FormValidator(settings, profileEditForm);
 const addFormValidator = new FormValidator(settings, addCardModalForm);
