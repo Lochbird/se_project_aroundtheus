@@ -6,6 +6,7 @@ import Section from "../components/Section.js";
 import PopupWithForm from "../components/PopupWithForm.js";
 import PopupWithImage from "../components/PopupWithImage.js";
 import { initialCards, settings } from "../utils/constants.js";
+import { data } from "autoprefixer";
 
 // ELEMENTS
 const profileEditButton = document.querySelector("#profile-edit-button");
@@ -43,15 +44,15 @@ function renderCard(cardData) {
 }
 
 // HANDLERS
-function handlerFormSubmit(data) {
+function handleFormSubmit(data) {
   userInfo.setUserInfo(data);
   profileEditPopup.close();
 }
 
-function handlerAddCardSubmit() {
-  const name = addCardTitleInput.value;
-  const link = addCardURLInput.value;
-  createCard({ name, link });
+function handleAddCardSubmit(data) {
+  const name = data.title;
+  const link = data.url;
+  createCard({name, link});
   cardPopup.close();
 }
 
@@ -63,21 +64,22 @@ cardSection.renderItems();
 
 // EVENT LISTENERS
 profileEditButton.addEventListener("click", () => {
-  profileTitleInput.value = profileTitle.textContent;
-  profileDescInput.value = profileDescription.textContent;
+  const info = userInfo.getUserInfo();
+  profileTitleInput.value = info.title;
+  profileDescInput.value = info.description;
   profileEditPopup.open();
 });
 
 addCardButton.addEventListener("click", () => {
   addFormValidator.toggleButtonState();
-  cardPopup.open(initialCards);
+  cardPopup.open();
 });
 
 // CLASSES
-const profileEditPopup = new PopupWithForm(profileEditModal, handlerFormSubmit);
+const profileEditPopup = new PopupWithForm(profileEditModal, handleFormSubmit);
 
 const imagePopup = new PopupWithImage(previewImageModal);
-const cardPopup = new PopupWithForm(addCardModal, handlerAddCardSubmit);
+const cardPopup = new PopupWithForm(addCardModal, handleAddCardSubmit);
 
 const userInfo = new UserInfo(profileTitle, profileDescription);
 
