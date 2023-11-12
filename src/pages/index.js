@@ -88,7 +88,6 @@ const addFormValidator = new FormValidator(settings, addCardModalForm);
 
 // CLASS EVENT LISTENERS
 profileEditPopup.setEventListeners();
-
 imagePopup.setEventListeners();
 cardPopup.setEventListeners();
 
