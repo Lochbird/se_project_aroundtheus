@@ -6,7 +6,6 @@ import Section from "../components/Section.js";
 import PopupWithForm from "../components/PopupWithForm.js";
 import PopupWithImage from "../components/PopupWithImage.js";
 import { initialCards, settings } from "../utils/constants.js";
-import { data } from "autoprefixer";
 
 // ELEMENTS
 const profileEditButton = document.querySelector("#profile-edit-button");
@@ -24,9 +23,6 @@ const cardListEl = document.querySelector(".cards__list");
 const addCardModal = document.querySelector("#add-card-modal");
 const addCardModalForm = document.forms["add-card-modal-form"];
 const addCardButton = document.querySelector("#profile-add-button");
-
-const addCardTitleInput = document.querySelector("#add-card-title-input");
-const addCardURLInput = document.querySelector("#add-card-url-input");
 
 const previewImageModal = document.querySelector("#preview-image-modal");
 
