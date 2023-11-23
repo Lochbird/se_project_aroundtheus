@@ -89,8 +89,3 @@ cardPopup.setEventListeners();
 
 editFormValidator.enableValidation();
 addFormValidator.enableValidation();
-
-const jsonplaceholder = new jsonPlaceholderClient();
-jsonplaceholder.getPosts()
-.then(response => response.json())
-.then(posts => console.log(posts))
