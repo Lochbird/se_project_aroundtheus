@@ -7,7 +7,7 @@ import PopupWithForm from "../components/PopupWithForm.js";
 import PopupWithImage from "../components/PopupWithImage.js";
 import { initialCards, settings } from "../utils/constants.js";
 import jsonPlaceholderClient from "../components/jsonplaceholderclient.js";
-
+console.log(jsonPlaceholderClient);
 // ELEMENTS
 const profileEditButton = document.querySelector("#profile-edit-button");
 const profileEditModal = document.querySelector("#edit-profile-modal");
