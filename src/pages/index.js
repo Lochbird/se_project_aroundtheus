@@ -6,6 +6,7 @@ import Section from "../components/Section.js";
 import PopupWithForm from "../components/PopupWithForm.js";
 import PopupWithImage from "../components/PopupWithImage.js";
 import { initialCards, settings } from "../utils/constants.js";
+import jsonPlaceholderClient from "../components/jsonplaceholderclient.js";
 
 // ELEMENTS
 const profileEditButton = document.querySelector("#profile-edit-button");
@@ -89,3 +90,8 @@ cardPopup.setEventListeners();
 
 editFormValidator.enableValidation();
 addFormValidator.enableValidation();
+
+const jsonplaceholder = new jsonPlaceholderClient();
+jsonplaceholder.getPosts()
+.then(response => response.json())
+.then(posts => console.log(posts))
