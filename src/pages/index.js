@@ -6,6 +6,7 @@ import Section from "../components/Section.js";
 import PopupWithForm from "../components/PopupWithForm.js";
 import PopupWithImage from "../components/PopupWithImage.js";
 import { initialCards, settings } from "../utils/constants.js";
+import Api from "../components/Api.js";
 
 // ELEMENTS
 const profileEditButton = document.querySelector("#profile-edit-button");
@@ -89,3 +90,16 @@ cardPopup.setEventListeners();
 
 editFormValidator.enableValidation();
 addFormValidator.enableValidation();
+
+fetch("https://around-api.en.tripleten-services.com/v1", {
+  headers: {
+    authorization: "84c28811-c81d-41e5-be8e-538877aa4bdc"
+  }
+})
+  .then(res => res.json())
+  .then((result) => {
+    console.log(result);
+  })
+  .catch((err) => {
+    console.error(err);
+  });
