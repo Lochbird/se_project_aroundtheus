@@ -13,8 +13,8 @@ export default class Api {
               return res.json();
             }
             return Promise.reject(`Error: ${res.status}`);
-          });
-    };
+          })
+    }
 
     getUserInfo() {
       return fetch(`${this._baseUrl}/users/me`, {
@@ -24,8 +24,8 @@ export default class Api {
           return res.json();
         }
         return Promise.reject(`Error: ${res.status}`);
-      });
-    };
+      })
+    }
 
     editUserInfo({name, about}) {
       fetch(`${this._baseUrl}/users/me`, {
@@ -35,7 +35,7 @@ export default class Api {
           name: name,
           about: about
         })
-      }); 
+      })
     }
 
     addCard(card) {
@@ -46,6 +46,39 @@ export default class Api {
           name: card.name,
           link: card.link
         })
-      });
-    };
+      })
+    }
+
+    deleteCard(cardId) {
+      return fetch(`${this._baseUrl}/cards/${cardId}`, {
+        method: "DELETE",
+        headers: this._headers,
+      })
+      .then(res => {
+        if (res.ok) {
+          console.log(res);
+        }
+      })
+    }
+
+    addLikes(cardId) {
+      return fetch(`${this._baseUrl}/cards/${cardId}/likes`, {
+        method: "PUT",
+        _headers: this._headers,
+    })
+    } 
+
+    deleteLikes(cardId) {
+      return fetch(`${this._baseUrl}/cards/${cardId}/likes`, {
+        method: "DELETE",
+        _headers: this._headers,
+    })
+    } 
+
+    handleProfilePicture(avatar) {
+      return fetch(`${this._baseUrl}/users/me/${avatar}`, {
+        method: "PATCH",
+        headers: this._headers
+      })
+    }
 };
