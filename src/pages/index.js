@@ -73,6 +73,26 @@ addCardButton.addEventListener("click", () => {
 });
 
 // CLASSES
+const api = new Api({
+  baseUrl: "https://around-api.en.tripleten-services.com/v1",
+  headers: {
+    authorization: "ba6f95f2-7e3a-4192-b9e4-9397fc618de9",
+    "Content-Type": "application/json"
+  }
+});
+
+api.getInitialCards()
+.then((result) => {})
+.catch((err) => {console.error(err)})
+
+api.getUserInfo()
+.then((result) => {})
+.catch((err) => {console.error(err)})
+
+api.addCard({name: "Yosemite Valley", link: "https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/around-project/yosemite.jpg"});
+
+api.editUserInfo({name: "Xander", about: "unprofessional in all regards"})
+
 const profileEditPopup = new PopupWithForm(profileEditModal, handleFormSubmit);
 
 const imagePopup = new PopupWithImage(previewImageModal);
@@ -91,15 +111,3 @@ cardPopup.setEventListeners();
 editFormValidator.enableValidation();
 addFormValidator.enableValidation();
 
-fetch("https://around-api.en.tripleten-services.com/v1", {
-  headers: {
-    authorization: "84c28811-c81d-41e5-be8e-538877aa4bdc"
-  }
-})
-  .then(res => res.json())
-  .then((result) => {
-    console.log(result);
-  })
-  .catch((err) => {
-    console.error(err);
-  });

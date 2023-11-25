@@ -1,33 +1,51 @@
 export default class Api {
-    constructor(options) {
-
+    constructor({baseUrl, headers}) {
+      this._baseUrl = baseUrl;
+      this._headers = headers;
+      this._authorization = headers.authorization;
     }
-
     getInitialCards() {
-        return fetch("https://around-api.en.tripleten-services.com/v1", {
-          headers: {
-            authorization: "84c28811-c81d-41e5-be8e-538877aa4bdc"
-          }
+        return fetch(`${this._baseUrl}/cards`, {
+          headers: this._headers
         })
           .then(res => {
             if (res.ok) {
               return res.json();
             }
             return Promise.reject(`Error: ${res.status}`);
-          })
-    }
+          });
+    };
 
     getUserInfo() {
-      fetch("https://around-api.en.tripleten-services.com/v1/users/me", {
-        method: "GET",
-        authorization: "84c28811-c81d-41e5-be8e-538877aa4bdc"
-      })
+      return fetch(`${this._baseUrl}/users/me`, {
+        headers: this._headers})
       .then(res => {
         if (res.ok) {
           return res.json();
         }
         return Promise.reject(`Error: ${res.status}`);
-      })
+      });
+    };
+
+    editUserInfo({name, about}) {
+      fetch(`${this._baseUrl}/users/me`, {
+        method: "PATCH",
+        headers: this._headers,
+        body: JSON.stringify({
+          name: name,
+          about: about
+        })
+      }); 
     }
+
+    addCard(card) {
+      return fetch(`${this._baseUrl}/cards`, {
+        method: "POST",
+        headers: this._headers,
+        body: JSON.stringify({
+          name: card.name,
+          link: card.link
+        })
+      });
+    };
 };
-  // {"user":{"name":"Jacques Cousteau","about":"Sailor, researcher","avatar":"https://practicum-content.s3.us-west-1.amazonaws.com/frontend-developer/common/avatar.jpg","_id":"e39ac9c946e25085a1241a94"},"token":"84c28811-c81d-41e5-be8e-538877aa4bdc"}
