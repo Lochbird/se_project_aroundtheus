@@ -22,6 +22,7 @@
             alt="Avatar"
             class="profile__image"
           />
+          <button class="profile__image-edit" type="button"></button>
           <div class="profile__info">
             <h1 class="profile__title">Jacques Cousteau</h1>
             <button
@@ -144,6 +145,28 @@
         <h2 class="modal__heading modal__heading_delete">Are you sure?</h2>
         <button class="modal__button modal__button_delete" type="submit">
           Yes
+        </button>
+        <button class="modal__close" type="button"></button>
+      </div>
+    </div>
+    <div class="modal" id="edit-profile-picture-modal">
+      <div class="modal__profile-picture">
+        <h2 class="modal__heading">Change profile picture</h2>
+        <label for="add-profile-url-input" class="modal__label">
+          <input
+            class="modal__input"
+            type="url"
+            name="url"
+            placeholder="Image URL"
+            id="add-profile-url-input"
+            required
+          />
+        </label>
+        <button
+          class="modal__button modal__button_profile-picture"
+          type="submit"
+        >
+          Save
         </button>
         <button class="modal__close" type="button"></button>
       </div>
