@@ -2,8 +2,8 @@ export default class Api {
     constructor({baseUrl, headers}) {
       this._baseUrl = baseUrl;
       this._headers = headers;
-      this._authorization = headers.authorization;
     }
+
     getInitialCards() {
         return fetch(`${this._baseUrl}/cards`, {
           headers: this._headers
@@ -27,13 +27,13 @@ export default class Api {
       })
     }
 
-    editUserInfo({name, about}) {
-      fetch(`${this._baseUrl}/users/me`, {
+    editUserInfo({title, description}) {
+      return fetch(`${this._baseUrl}/users/me`, {
         method: "PATCH",
         headers: this._headers,
         body: JSON.stringify({
-          name: name,
-          about: about
+          name: title,
+          about: description
         })
       })
     }
@@ -43,8 +43,8 @@ export default class Api {
         method: "POST",
         headers: this._headers,
         body: JSON.stringify({
-          name: card.name,
-          link: card.link
+          name: card.title,
+          link: card.url
         })
       })
     }
@@ -61,24 +61,27 @@ export default class Api {
       })
     }
 
-    addLikes(cardId) {
+    addLikeCard(cardId) {
       return fetch(`${this._baseUrl}/cards/${cardId}/likes`, {
         method: "PUT",
         _headers: this._headers,
     })
     } 
 
-    deleteLikes(cardId) {
+    addDislikeCard(cardId) {
       return fetch(`${this._baseUrl}/cards/${cardId}/likes`, {
         method: "DELETE",
         _headers: this._headers,
     })
     } 
 
-    handleProfilePicture(avatar) {
-      return fetch(`${this._baseUrl}/users/me/${avatar}`, {
+    editProfileImage(link) {
+      return fetch(`${this._baseUrl}/users/me/avatar`, {
         method: "PATCH",
-        headers: this._headers
+        headers: this._headers,
+        body: JSON.stringify({
+          avatar: link,
+        })
       })
     }
 };

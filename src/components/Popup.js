@@ -19,6 +19,10 @@ export default class Popup {
     }
   };
 
+  isLoading(isLoading, buttonText) {
+    this._submitButton.textContent = isLoading ? buttonText : this._submitButtonText;
+  }
+
   setEventListeners() {
     this._popupElement.addEventListener("click", (evt) => {
       if (

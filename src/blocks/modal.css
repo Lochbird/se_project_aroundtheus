@@ -82,7 +82,7 @@
   background-color: rgba(0, 0, 0, 0.8);
 }
 
-.modal__button_profile-picture {
+.modal__button_profile-image {
   margin-top: 48px;
 }
 
@@ -113,7 +113,7 @@
   opacity: 0.7;
 }
 
-.modal__profile-picture {
+.modal__profile-image {
   position: relative;
   padding: 36px;
   background-color: #fff;

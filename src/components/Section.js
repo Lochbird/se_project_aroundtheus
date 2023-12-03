@@ -13,6 +13,6 @@ export default class Section {
   }
 
   addItem(element) {
-    this._classElement.prepend(element);
+    this._classElement.append(element);
   }
 }
