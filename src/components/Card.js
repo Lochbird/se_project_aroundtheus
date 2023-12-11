@@ -1,10 +1,15 @@
 export default class Card {
-  constructor({ name, link }, cardSelector, { handleImageClick }) {
+  constructor({ name, link, _id, isLiked }, cardSelector,
+    { handleImageClick }, handleDeleteCardSubmit, addLikeCard, removeLikeCard) {
     this._name = name;
     this._link = link;
+    this._id = _id;
+    this._isLiked = isLiked;
     this._cardSelector = cardSelector;
     this._handleImageClick = handleImageClick;
-    this._deleteModal = document.querySelector("#delete-modal")
+    this._handleDeleteCardSubmit = handleDeleteCardSubmit;
+    this._addLikeCard = addLikeCard;
+    this._removeLikeCard = removeLikeCard;
   }
 
   getView() {
@@ -34,7 +39,7 @@ export default class Card {
     });
 
     this._cardDeleteBtn.addEventListener("click", () => {
-      this._handleDeleteCard();
+      this._handleDeleteCardSubmit(this);
     });
 
     this._cardImage.addEventListener("click", () => {
@@ -44,9 +49,14 @@ export default class Card {
 
   _handleLikeButton() {
     this._cardLikeBtn.classList.toggle("card__like-button_active");
+    if(!this._isLiked) {
+      this._addLikeCard(this._id);
+    } else {
+      this._removeLikeCard(this._id);
+    }
   }
 
-  _handleDeleteCard() {
+  handleDeleteCard() {
     this._cardElement.remove();
     this._cardElement = null;
   }

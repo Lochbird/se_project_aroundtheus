@@ -39,7 +39,7 @@ function createCard(cardData) {
 function renderCard(cardData) {
   const card = new Card(cardData, "#card-template", {
     handleImageClick: () => imagePopup.open(cardData),
-  });
+  }, handleDeleteCardSubmit, api.addLikeCard, api.removelikeCard);
   return card.getView();
 }
 
@@ -47,6 +47,7 @@ function renderCard(cardData) {
 function handleProfileEditSubmit(data) {
   profileEditPopup.isLoading(true, "Saving...");
   api.editUserInfo(data)
+  .then(data => data.json())
   .then((userData) => {
     newProfileInfo.setUserInfo(userData);
     profileEditPopup.close();
@@ -67,18 +68,22 @@ function handleAddCardSubmit(data) {
 
 function handleDeleteCardSubmit(card) {
   cardDeletePopup.open();
-  cardDeletePopup.isLoading(true, "Saving...");
-  api.deleteCard(card)
-  .then(() => {
-    card.deleteCard(), cardDeletePopup.close();
+  cardDeletePopup.setSubmitCallback(() => {
+    cardDeletePopup.isLoading(true, "Saving...");
+    api.deleteCard(card)
+    .then(() => {
+      card.handleDeleteCard(), cardDeletePopup.close();
+    })
+    .catch((err) => {
+      console.error(err);
+    })
+    .finally(() => cardDeletePopup.isLoading(false))
   })
-  .catch((err) => console.error(err))
-  .finally(() => cardDeletePopup.isLoading(false))
 }
 
 function handleProfileImageSubmit(data) {
   profileImageEditPopup.isLoading(true, "Saving...");
-  api.editProfileImage(data)
+  profileImage.src = api.editProfileImage(data)
   .then(() => {
     newProfileInfo.setProfileImage(data);
     profileImageEditPopup.close();
@@ -130,10 +135,10 @@ api.getUserInfo()
 .then((result) => {console.log(result)})
 .catch((err) => {console.error(err)})
 
-const profileImageEditPopup = new PopupWithForm(profileImageModal, handleProfileImageSubmit)
-const newProfileInfo = new UserInfo(profileTitle, profileDescription, profileImage)
+const profileImageEditPopup = new PopupWithForm(profileImageModal, handleProfileImageSubmit);
+const newProfileInfo = new UserInfo(profileTitle, profileDescription, profileImage);
 
-const cardDeletePopup = new PopupWithConfirmation(deleteModal, handleDeleteCardSubmit)
+const cardDeletePopup = new PopupWithConfirmation(deleteModal, handleDeleteCardSubmit);
 
 const profileEditPopup = new PopupWithForm(profileEditModal, handleProfileEditSubmit);
 
@@ -148,6 +153,7 @@ profileEditPopup.setEventListeners();
 profileImageEditPopup.setEventListeners();
 imagePopup.setEventListeners();
 cardPopup.setEventListeners();
+cardDeletePopup.setEventListeners();
 
 editFormValidator.enableValidation();
 addFormValidator.enableValidation();

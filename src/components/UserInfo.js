@@ -14,8 +14,10 @@ export default class UserInfo {
   }
 
   setUserInfo(data) {
-    this._title.textContent = data.title;
-    this._description.textContent = data.description;
+    console.log(data);
+
+    this._title.textContent = data.name;
+    this._description.textContent = data.about;
   }
 
   getProfileImage() {
