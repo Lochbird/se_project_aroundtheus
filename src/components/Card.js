@@ -1,6 +1,6 @@
 export default class Card {
   constructor({ name, link, _id, isLiked }, cardSelector,
-    { handleImageClick }, handleDeleteCardSubmit, addLikeCard, removeLikeCard) {
+    { handleImageClick }, handleDeleteCardSubmit, toggleLikeCard) {
     this._name = name;
     this._link = link;
     this._id = _id;
@@ -8,8 +8,7 @@ export default class Card {
     this._cardSelector = cardSelector;
     this._handleImageClick = handleImageClick;
     this._handleDeleteCardSubmit = handleDeleteCardSubmit;
-    this._addLikeCard = addLikeCard;
-    this._removeLikeCard = removeLikeCard;
+    this._toggleLikeCard = toggleLikeCard;
   }
 
   getView() {
@@ -49,11 +48,7 @@ export default class Card {
 
   _handleLikeButton() {
     this._cardLikeBtn.classList.toggle("card__like-button_active");
-    if(!this._isLiked) {
-      this._addLikeCard(this._id);
-    } else {
-      this._removeLikeCard(this._id);
-    }
+    this._toggleLikeCard(this._id, this._isLiked);
   }
 
   handleDeleteCard() {

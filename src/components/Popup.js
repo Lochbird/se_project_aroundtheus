@@ -1,7 +1,7 @@
 export default class Popup {
   constructor({ popupElement }) {
     this._popupElement = popupElement;
-    this._submitButton = this._popupElement.querySelector(".modal__button");
+    
   }
 
   open() {
@@ -19,10 +19,6 @@ export default class Popup {
       this.close();
     }
   };
-
-  isLoading(isLoading, buttonText) {
-    this._submitButton.textContent = isLoading ? buttonText : this._submitButtonText;
-  }
 
   setEventListeners() {
     this._popupElement.addEventListener("click", (evt) => {

@@ -36,15 +36,16 @@ export default class Api {
           about: description
         })
       })
+      .then(data => data.json())
     }
 
-    addCard(card) {
+    addCard({title, url}) {
       return fetch(`${this._baseUrl}/cards`, {
         method: "POST",
         headers: this._headers,
         body: JSON.stringify({
-          name: card.title,
-          link: card.url
+          name: title,
+          link: url
         })
       })
     }
@@ -62,9 +63,13 @@ export default class Api {
       }
 
     addLikeCard(cardId) {
+      console.log(this._baseUrl)
       return fetch(`${this._baseUrl}/cards/${cardId}/likes`, {
         method: "PUT",
         _headers: this._headers,
+    })
+    .then((res) => {
+      console.log(res);
     })
     } 
 
@@ -72,6 +77,9 @@ export default class Api {
       return fetch(`${this._baseUrl}/cards/${cardId}/likes`, {
         method: "DELETE",
         _headers: this._headers,
+    })
+    .then((res) => {
+      console.log(res);
     })
     } 
 

@@ -39,15 +39,27 @@ function createCard(cardData) {
 function renderCard(cardData) {
   const card = new Card(cardData, "#card-template", {
     handleImageClick: () => imagePopup.open(cardData),
-  }, handleDeleteCardSubmit, api.addLikeCard, api.removelikeCard);
+  }, handleDeleteCardSubmit, toggleLikeCard);
   return card.getView();
+}
+
+function toggleLikeCard(cardId, isLiked) {
+    if(!isLiked) {
+      api.addLikeCard(cardId)
+      .then((res) => {
+        console.log("add liked card")
+        console.log(res);
+      })
+    } else {
+      api.removeLikeCard(cardId);
+      console.log("add disliked card")
+    }
 }
 
 // HANDLERS
 function handleProfileEditSubmit(data) {
   profileEditPopup.isLoading(true, "Saving...");
   api.editUserInfo(data)
-  .then(data => data.json())
   .then((userData) => {
     newProfileInfo.setUserInfo(userData);
     profileEditPopup.close();
@@ -59,11 +71,18 @@ function handleProfileEditSubmit(data) {
 }
 
 function handleAddCardSubmit(data) {
-  api.addCard(data);
-  const name = data.title;
-  const link = data.url;
-  createCard({name, link});
-  cardPopup.close();
+  cardPopup.isLoading(true, "Saving...");
+  api.addCard(data)
+  .then((newCard) => {
+    createCard(newCard);
+  })
+  .catch((err) => {
+    console.error(err)
+  })
+  .finally(() => {
+    cardPopup.close()
+  cardPopup.isLoading(false);
+  })
 }
 
 function handleDeleteCardSubmit(card) {
@@ -132,8 +151,12 @@ cardSection.renderItems();
 .catch((err) => {console.error(err)})
 
 api.getUserInfo()
-.then((result) => {console.log(result)})
-.catch((err) => {console.error(err)})
+.then((userInfo) => {
+  api.editUserInfo({title: userInfo.name, description: userInfo.about});
+  newProfileInfo.setUserInfo(userInfo);
+})
+.catch((err) => {console.error(err)
+})
 
 const profileImageEditPopup = new PopupWithForm(profileImageModal, handleProfileImageSubmit);
 const newProfileInfo = new UserInfo(profileTitle, profileDescription, profileImage);
