@@ -36,7 +36,7 @@ export default class Api {
           about: description
         })
       })
-      .then(data => data.json())
+      .then(res => res.json())
     }
 
     addCard({title, url}) {
@@ -48,6 +48,7 @@ export default class Api {
           link: url
         })
       })
+      .then(res => res.json())
     }
 
     deleteCard({_id}) {
