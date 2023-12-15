@@ -67,17 +67,15 @@ export default class Api {
       console.log(this._baseUrl)
       return fetch(`${this._baseUrl}/cards/${cardId}/likes`, {
         method: "PUT",
-        _headers: this._headers,
+        headers: this._headers,
     })
-    .then((res) => {
-      console.log(res);
-    })
+    .then(res => res.json());
     } 
 
     removelikeCard(cardId) {
       return fetch(`${this._baseUrl}/cards/${cardId}/likes`, {
         method: "DELETE",
-        _headers: this._headers,
+        headers: this._headers,
     })
     .then((res) => {
       console.log(res);
@@ -92,5 +90,6 @@ export default class Api {
           avatar: link,
         })
       })
+      .then(res => res.json());
     }
 };

@@ -47,12 +47,10 @@ function toggleLikeCard(cardId, isLiked) {
     if(!isLiked) {
       api.addLikeCard(cardId)
       .then((res) => {
-        console.log("add liked card")
         console.log(res);
       })
     } else {
       api.removeLikeCard(cardId);
-      console.log("add disliked card")
     }
 }
 
@@ -102,14 +100,17 @@ function handleDeleteCardSubmit(card) {
 
 function handleProfileImageSubmit(data) {
   profileImageEditPopup.isLoading(true, "Saving...");
-  profileImage.src = api.editProfileImage(data)
+  profileImage.src = "";
+  profileImage.src = api.editProfileImage(data.url)
   .then(() => {
-    newProfileInfo.setProfileImage(data);
-    profileImageEditPopup.close();
-    profileImageEditPopup.isLoading(false);
+    newProfileInfo.setProfileImage(data.url);
   })
   .catch((err) => {
     console.error(err);
+  })
+  .finally(() => {
+    profileImageEditPopup.isLoading(false);
+    profileImageEditPopup.close();
   })
 }
 
@@ -154,8 +155,12 @@ api.getUserInfo()
 .then((userInfo) => {
   api.editUserInfo({title: userInfo.name, description: userInfo.about});
   newProfileInfo.setUserInfo(userInfo);
+  newProfileInfo.setProfileImage(userInfo.avatar);
 })
-.catch((err) => {console.error(err)
+.then(() => {
+  console.log("Ran");
+})
+.catch((err) => {console.error(err);
 })
 
 const profileImageEditPopup = new PopupWithForm(profileImageModal, handleProfileImageSubmit);
