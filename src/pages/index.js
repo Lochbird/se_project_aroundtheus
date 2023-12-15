@@ -9,7 +9,7 @@ import { settings } from "../utils/constants.js";
 import Api from "../components/Api.js";
 import PopupWithConfirmation from "../components/PopupWithConfirmation.js";
 
-// ELEMENTS
+// ~~~~~~~~~~~~~~~ ELEMENTS ~~~~~~~~~~~~~~ //
 const profileEditButton = document.querySelector("#profile-edit-button");
 const profileEditModal = document.querySelector("#edit-profile-modal");
 const profileEditForm = document.forms["edit-profile-form"];
@@ -30,7 +30,7 @@ const addCardButton = document.querySelector("#profile-add-button");
 
 const previewImageModal = document.querySelector("#preview-image-modal");
 
-// FUNCTIONS
+// ~~~~~~~~~~~~~~ FUNCTIONS ~~~~~~~~~~~~~~ //
 function createCard(cardData) {
   const card = renderCard(cardData);
   return cardSection.addItem(card);
@@ -47,17 +47,18 @@ function toggleLikeCard(card) {
     if(!card._isLiked) {
       api.addLikeCard(card._id)
       .then(() => {
-        card.handleLikeButton();
+        card.toggleLikeButton();
       })
     } else {
       api.removeLikeCard(card._id)
       .then(() => {
-        card.handleLikeButton();
+        card.toggleLikeButton();
       });
       }
-    }
+}
 
-// HANDLERS
+// ~~~~~~~~~~~~~~~ HANDLERS ~~~~~~~~~~~~~~ //
+// -------- PROFILE ------- //
 function handleProfileEditSubmit(data) {
   profileEditPopup.isLoading(true, "Saving...");
   api.editUserInfo(data)
@@ -71,6 +72,23 @@ function handleProfileEditSubmit(data) {
   .finally(() => profileEditPopup.isLoading(false));
 }
 
+function handleProfileImageSubmit(data) {
+  profileImageEditPopup.isLoading(true, "Saving...");
+  profileImage.src = "";
+  profileImage.src = api.editProfileImage(data.url)
+  .then(() => {
+    newProfileInfo.setProfileImage(data.url);
+  })
+  .catch((err) => {
+    console.error(err);
+  })
+  .finally(() => {
+    profileImageEditPopup.isLoading(false);
+    profileImageEditPopup.close();
+  })
+}
+
+// --------- CARD --------- //
 function handleAddCardSubmit(data) {
   cardPopup.isLoading(true, "Saving...");
   api.addCard(data)
@@ -92,7 +110,7 @@ function handleDeleteCardSubmit(card) {
     cardDeletePopup.isLoading(true, "Saving...");
     api.deleteCard(card)
     .then(() => {
-      card.handleDeleteCard(), cardDeletePopup.close();
+      card.deleteCard(), cardDeletePopup.close();
     })
     .catch((err) => {
       console.error(err);
@@ -101,23 +119,7 @@ function handleDeleteCardSubmit(card) {
   })
 }
 
-function handleProfileImageSubmit(data) {
-  profileImageEditPopup.isLoading(true, "Saving...");
-  profileImage.src = "";
-  profileImage.src = api.editProfileImage(data.url)
-  .then(() => {
-    newProfileInfo.setProfileImage(data.url);
-  })
-  .catch((err) => {
-    console.error(err);
-  })
-  .finally(() => {
-    profileImageEditPopup.isLoading(false);
-    profileImageEditPopup.close();
-  })
-}
-
-// EVENT LISTENERS
+// ~~~~~~~~~~~ EVENT LISTENERS ~~~~~~~~~~~ //
 profileEditButton.addEventListener("click", () => {
   editFormValidator.toggleButtonState();
   const info = newProfileInfo.getUserInfo();
@@ -134,7 +136,9 @@ profileImageEditButton.addEventListener("click", () => {
   profileImageEditPopup.open();
 })
 
-// CLASSES
+
+
+// ~~~~~~~~~~~~~~~~~ API ~~~~~~~~~~~~~~~~~ //
 const api = new Api({
   baseUrl: "https://around-api.en.tripleten-services.com/v1",
   headers: {
@@ -163,6 +167,8 @@ api.getUserInfo()
 .catch((err) => {console.error(err);
 })
 
+// ~~~~~~~~~~~~~~~ CLASSES ~~~~~~~~~~~~~~~ //
+
 const profileImageEditPopup = new PopupWithForm(profileImageModal, handleProfileImageSubmit);
 const newProfileInfo = new UserInfo(profileTitle, profileDescription, profileImage);
 
@@ -176,13 +182,14 @@ const cardPopup = new PopupWithForm(addCardModal, handleAddCardSubmit);
 const editFormValidator = new FormValidator(settings, profileEditForm);
 const addFormValidator = new FormValidator(settings, addCardModalForm);
 
-// CLASS EVENT LISTENERS
+// - CLASS EVENT LISTENERS  //
 profileEditPopup.setEventListeners();
 profileImageEditPopup.setEventListeners();
 imagePopup.setEventListeners();
 cardPopup.setEventListeners();
 cardDeletePopup.setEventListeners();
 
+// ~~~~~~~~~~~~~~ VALIDATION ~~~~~~~~~~~~~ //
 editFormValidator.enableValidation();
 addFormValidator.enableValidation();
 

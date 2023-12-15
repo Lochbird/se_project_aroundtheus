@@ -4,27 +4,24 @@ export default class Api {
       this._headers = headers;
     }
 
+    _checkResponse(res) {
+      if (res.ok) {
+        return res.json();
+      }
+      return Promise.reject(`Error: ${res.status}`);
+    }
+
     getInitialCards() {
         return fetch(`${this._baseUrl}/cards`, {
           headers: this._headers
         })
-          .then(res => {
-            if (res.ok) {
-              return res.json();
-            }
-            return Promise.reject(`Error: ${res.status}`);
-          })
+          .then(res => this._checkResponse(res));
     }
 
     getUserInfo() {
       return fetch(`${this._baseUrl}/users/me`, {
         headers: this._headers})
-      .then(res => {
-        if (res.ok) {
-          return res.json();
-        }
-        return Promise.reject(`Error: ${res.status}`);
-      })
+        .then(res => this._checkResponse(res));
     }
 
     editUserInfo({title, description}) {
@@ -36,7 +33,7 @@ export default class Api {
           about: description
         })
       })
-      .then(res => res.json())
+      .then(res => this._checkResponse(res));
     }
 
     addCard({title, url}) {
@@ -48,7 +45,7 @@ export default class Api {
           link: url
         })
       })
-      .then(res => res.json())
+      .then(res => this._checkResponse(res));
     }
 
     deleteCard({_id}) {
@@ -56,7 +53,7 @@ export default class Api {
         method: "DELETE",
         headers: this._headers,
       })
-      .then(res => res.json());
+      .then(res => this._checkResponse(res));
       }
 
     addLikeCard(cardId) {
@@ -64,7 +61,7 @@ export default class Api {
         method: "PUT",
         headers: this._headers,
     })
-    .then(res => res.json());
+    .then(res => this._checkResponse(res));
     } 
 
     removeLikeCard(cardId) {
@@ -72,7 +69,7 @@ export default class Api {
         method: "DELETE",
         headers: this._headers,
     })
-    .then(res => res.json());
+    .then(res => this._checkResponse(res));
     } 
 
     editProfileImage(link) {
@@ -83,6 +80,6 @@ export default class Api {
           avatar: link,
         })
       })
-      .then(res => res.json());
+      .then(res => this._checkResponse(res));
     }
 };
