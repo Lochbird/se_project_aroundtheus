@@ -56,15 +56,10 @@ export default class Api {
         method: "DELETE",
         headers: this._headers,
       })
-      .then(res => {
-        if (res.ok) {
-          console.log(res);
-        }
-      })
+      .then(res => res.json());
       }
 
     addLikeCard(cardId) {
-      console.log(this._baseUrl)
       return fetch(`${this._baseUrl}/cards/${cardId}/likes`, {
         method: "PUT",
         headers: this._headers,
@@ -72,14 +67,12 @@ export default class Api {
     .then(res => res.json());
     } 
 
-    removelikeCard(cardId) {
+    removeLikeCard(cardId) {
       return fetch(`${this._baseUrl}/cards/${cardId}/likes`, {
         method: "DELETE",
         headers: this._headers,
     })
-    .then((res) => {
-      console.log(res);
-    })
+    .then(res => res.json());
     } 
 
     editProfileImage(link) {

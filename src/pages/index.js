@@ -5,7 +5,7 @@ import UserInfo from "../components/UserInfo.js";
 import Section from "../components/Section.js";
 import PopupWithForm from "../components/PopupWithForm.js";
 import PopupWithImage from "../components/PopupWithImage.js";
-import { initialCards, settings } from "../utils/constants.js";
+import { settings } from "../utils/constants.js";
 import Api from "../components/Api.js";
 import PopupWithConfirmation from "../components/PopupWithConfirmation.js";
 
@@ -43,16 +43,19 @@ function renderCard(cardData) {
   return card.getView();
 }
 
-function toggleLikeCard(cardId, isLiked) {
-    if(!isLiked) {
-      api.addLikeCard(cardId)
-      .then((res) => {
-        console.log(res);
+function toggleLikeCard(card) {
+    if(!card._isLiked) {
+      api.addLikeCard(card._id)
+      .then(() => {
+        card.handleLikeButton();
       })
     } else {
-      api.removeLikeCard(cardId);
+      api.removeLikeCard(card._id)
+      .then(() => {
+        card.handleLikeButton();
+      });
+      }
     }
-}
 
 // HANDLERS
 function handleProfileEditSubmit(data) {
@@ -156,9 +159,6 @@ api.getUserInfo()
   api.editUserInfo({title: userInfo.name, description: userInfo.about});
   newProfileInfo.setUserInfo(userInfo);
   newProfileInfo.setProfileImage(userInfo.avatar);
-})
-.then(() => {
-  console.log("Ran");
 })
 .catch((err) => {console.error(err);
 })
