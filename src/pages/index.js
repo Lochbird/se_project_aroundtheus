@@ -74,10 +74,9 @@ function handleProfileEditSubmit(data) {
 
 function handleProfileImageSubmit(data) {
   profileImageEditPopup.isLoading(true, "Saving...");
-  profileImage.src = "";
-  profileImage.src = api.editProfileImage(data.url)
-  .then(() => {
-    newProfileInfo.setProfileImage(data.url);
+  api.editProfileImage(data.url)
+  .then((res) => {
+    newProfileInfo.setProfileImage(res.avatar);
   })
   .catch((err) => {
     console.error(err);
