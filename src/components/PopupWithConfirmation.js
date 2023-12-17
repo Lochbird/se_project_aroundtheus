@@ -1,13 +1,11 @@
 import Popup from "./Popup.js";
 
 export default class PopupWithConfirmation extends Popup {
-    constructor(popupElement, handleDeleteCardSubmit) {
+    constructor(popupElement) {
         super({popupElement})
 
         this._submitButton = this._popupElement.querySelector(".modal__button");
         this._submitButtonText = this._submitButton.textContent;
-
-        this._handleDeleteCardSubmit = handleDeleteCardSubmit;
     }
 
     setSubmitCallback(callback) {

@@ -47,12 +47,12 @@ function toggleLikeCard(card) {
     if(!card._isLiked) {
       api.addLikeCard(card._id)
       .then(() => {
-        card.toggleLikeButton();
+        card.setIsliked();
       })
     } else {
       api.removeLikeCard(card._id)
       .then(() => {
-        card.toggleLikeButton();
+        card.setIsliked();
       });
       }
 }
@@ -77,13 +77,13 @@ function handleProfileImageSubmit(data) {
   api.editProfileImage(data.url)
   .then((res) => {
     newProfileInfo.setProfileImage(res.avatar);
+    profileImageEditPopup.close();
   })
   .catch((err) => {
     console.error(err);
   })
   .finally(() => {
     profileImageEditPopup.isLoading(false);
-    profileImageEditPopup.close();
   })
 }
 
@@ -93,12 +93,12 @@ function handleAddCardSubmit(data) {
   api.addCard(data)
   .then((newCard) => {
     createCard(newCard);
+    cardPopup.close()
   })
   .catch((err) => {
     console.error(err)
   })
   .finally(() => {
-    cardPopup.close()
   cardPopup.isLoading(false);
   })
 }
@@ -109,7 +109,8 @@ function handleDeleteCardSubmit(card) {
     cardDeletePopup.isLoading(true, "Saving...");
     api.deleteCard(card)
     .then(() => {
-      card.deleteCard(), cardDeletePopup.close();
+      card.deleteCard();
+      cardDeletePopup.close();
     })
     .catch((err) => {
       console.error(err);
@@ -149,13 +150,14 @@ const api = new Api({
 let cardSection;
 
 api.getInitialCards()
-.then((cards) => {cardSection = new Section({
-  items: cards,
-  renderer: createCard,
-}, cardListEl);
-cardSection.renderItems();
-})
-.catch((err) => {console.error(err)})
+  .then((cards) => {
+    cardSection = new Section({
+    items: cards,
+    renderer: createCard,
+  }, cardListEl);
+  cardSection.renderItems();
+  })
+  .catch((err) => {console.error(err)})
 
 api.getUserInfo()
 .then((userInfo) => {
@@ -171,7 +173,7 @@ api.getUserInfo()
 const profileImageEditPopup = new PopupWithForm(profileImageModal, handleProfileImageSubmit);
 const newProfileInfo = new UserInfo(profileTitle, profileDescription, profileImage);
 
-const cardDeletePopup = new PopupWithConfirmation(deleteModal, handleDeleteCardSubmit);
+const cardDeletePopup = new PopupWithConfirmation(deleteModal);
 
 const profileEditPopup = new PopupWithForm(profileEditModal, handleProfileEditSubmit);
 
