@@ -47,7 +47,7 @@ function toggleLikeCard(card) {
     if(!card._isLiked) {
       api.addLikeCard(card._id)
       .then(() => {
-        card.setIsliked();
+        card.setIsliked(true);
       })
       .catch((err) => {
         console.error(err);
@@ -55,7 +55,7 @@ function toggleLikeCard(card) {
     } else {
       api.removeLikeCard(card._id)
       .then(() => {
-        card.setIsliked();
+        card.setIsliked(false);
       })
       .catch((err) => {
         console.error(err);
@@ -167,7 +167,6 @@ api.getInitialCards()
 
 api.getUserInfo()
 .then((userInfo) => {
-  api.editUserInfo({title: userInfo.name, description: userInfo.about});
   newProfileInfo.setUserInfo(userInfo);
   newProfileInfo.setProfileImage(userInfo.avatar);
 })
