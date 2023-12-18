@@ -49,18 +49,24 @@ function toggleLikeCard(card) {
       .then(() => {
         card.setIsliked();
       })
+      .catch((err) => {
+        console.error(err);
+      })
     } else {
       api.removeLikeCard(card._id)
       .then(() => {
         card.setIsliked();
-      });
+      })
+      .catch((err) => {
+        console.error(err);
+      })
       }
 }
 
 // ~~~~~~~~~~~~~~~ HANDLERS ~~~~~~~~~~~~~~ //
 // -------- PROFILE ------- //
 function handleProfileEditSubmit(data) {
-  profileEditPopup.isLoading(true, "Saving...");
+  profileEditPopup.renderLoading(true, "Saving...");
   api.editUserInfo(data)
   .then((userData) => {
     newProfileInfo.setUserInfo(userData);
@@ -69,11 +75,11 @@ function handleProfileEditSubmit(data) {
   .catch((err) => {
     console.error(err);
   })
-  .finally(() => profileEditPopup.isLoading(false));
+  .finally(() => profileEditPopup.renderLoading(false));
 }
 
 function handleProfileImageSubmit(data) {
-  profileImageEditPopup.isLoading(true, "Saving...");
+  profileImageEditPopup.renderLoading(true, "Saving...");
   api.editProfileImage(data.url)
   .then((res) => {
     newProfileInfo.setProfileImage(res.avatar);
@@ -83,13 +89,13 @@ function handleProfileImageSubmit(data) {
     console.error(err);
   })
   .finally(() => {
-    profileImageEditPopup.isLoading(false);
+    profileImageEditPopup.renderLoading(false);
   })
 }
 
 // --------- CARD --------- //
 function handleAddCardSubmit(data) {
-  cardPopup.isLoading(true, "Saving...");
+  cardPopup.renderLoading(true, "Saving...");
   api.addCard(data)
   .then((newCard) => {
     createCard(newCard);
@@ -99,14 +105,14 @@ function handleAddCardSubmit(data) {
     console.error(err)
   })
   .finally(() => {
-  cardPopup.isLoading(false);
+  cardPopup.renderLoading(false);
   })
 }
 
 function handleDeleteCardSubmit(card) {
   cardDeletePopup.open();
   cardDeletePopup.setSubmitCallback(() => {
-    cardDeletePopup.isLoading(true, "Saving...");
+    cardDeletePopup.renderLoading(true, "Saving...");
     api.deleteCard(card)
     .then(() => {
       card.deleteCard();
@@ -115,7 +121,7 @@ function handleDeleteCardSubmit(card) {
     .catch((err) => {
       console.error(err);
     })
-    .finally(() => cardDeletePopup.isLoading(false))
+    .finally(() => cardDeletePopup.renderLoading(false))
   })
 }
 

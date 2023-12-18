@@ -20,7 +20,7 @@ export default class PopupWithConfirmation extends Popup {
         super.setEventListeners();
     }
 
-    isLoading(isLoading, buttonText) {
+    renderLoading(isLoading, buttonText) {
         this._submitButton.textContent = isLoading ? buttonText : this._submitButtonText;
       }
 }
