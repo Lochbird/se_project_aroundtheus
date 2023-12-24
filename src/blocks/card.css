@@ -33,7 +33,7 @@
 .card__delete-button {
   display: block;
   position: absolute;
-  background: transparent url(../images/trash_icon.svg);
+  background: transparent url(../images/trash_icon.svg) no-repeat;
   border-style: none;
   cursor: pointer;
   width: 18px;

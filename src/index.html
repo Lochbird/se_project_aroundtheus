@@ -17,19 +17,16 @@
       </header>
       <main class="content">
         <section class="profile page__section">
-          <img
-            src="<%=require('./images/jacques-cousteau.png')%>"
-            alt="Avatar"
-            class="profile__image"
-          />
+          <img src="" alt="Avatar" class="profile__image" />
+          <button class="profile__image-edit" type="button"></button>
           <div class="profile__info">
-            <h1 class="profile__title">Jacques Cousteau</h1>
+            <h1 class="profile__title"></h1>
             <button
               class="profile__edit-button"
               id="profile-edit-button"
               type="button"
             ></button>
-            <p class="profile__description">Explorer</p>
+            <p class="profile__description"></p>
           </div>
           <button
             class="profile__add-button"
@@ -137,6 +134,39 @@
           <img src="#" class="card__image card__preview-image" alt="#" />
         </div>
         <p class="modal__paragraph"></p>
+      </div>
+    </div>
+    <div class="modal" id="delete-modal">
+      <div class="modal__delete">
+        <h2 class="modal__heading modal__heading_delete">Are you sure?</h2>
+        <button class="modal__button modal__button_delete" type="submit">
+          Yes
+        </button>
+        <button class="modal__close" type="button"></button>
+      </div>
+    </div>
+    <div class="modal" id="edit-profile-image-modal">
+      <div class="modal__profile-image">
+        <h2 class="modal__heading">Change profile picture</h2>
+        <form class="modal__form" id="edit-profile-image-form">
+          <label for="add-profile-url-input" class="modal__label">
+            <input
+              class="modal__input"
+              type="url"
+              name="url"
+              placeholder="Image URL"
+              id="add-profile-url-input"
+              required
+            />
+          </label>
+          <button
+            class="modal__button modal__button_profile-image"
+            type="submit"
+          >
+            Save
+          </button>
+        </form>
+        <button class="modal__close" type="button"></button>
       </div>
     </div>
     <template id="card-template">
